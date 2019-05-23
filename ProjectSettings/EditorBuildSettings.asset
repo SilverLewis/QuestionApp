@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1045 &1
+EditorBuildSettings:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/Front Page.unity
+    guid: 2dd83660a3297944998a7d732a238e6a
+  - enabled: 1
+    path: Assets/Scenes/Questions.unity
+    guid: 563c84de4ee15954f87233b0070b37c4
+  - enabled: 1
+    path: Assets/Scenes/Add Player.unity
+    guid: 3fec2230603d7da4b8060f377f218f5e
+  m_configObjects: {}

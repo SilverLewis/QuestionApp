@@ -9,8 +9,8 @@ public class QuestionScreenUI : MonoBehaviour
     // Start is called before the first frame update
     public void DisplayQuestion(int roundNum, int questionNum, string question, string catagory)
     {
-        this.roundNum.text = roundNum.ToString();
-        this.questionNum.text = questionNum.ToString();
+        this.roundNum.text = roundNum.ToString()+"/3";
+        this.questionNum.text = questionNum.ToString()+"/12";
         this.question.text = question;
         this.catagory.text = catagory;
     }

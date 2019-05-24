@@ -6,8 +6,8 @@ using UnityEngine;
 public class QuestionHolder : MonoBehaviour
 {
 
-    private Dictionary<string,int> indexes = new Dictionary<string,int>();
-    private Dictionary<int, string> question = new Dictionary<int, string>();
+    private List<string> indexes = new List<string>();
+    private List<string> question = new List<string>();
     private List<List<bool>> adjacencyMatrix = new List<List<bool>>();
     private CSVReader reader;
 
@@ -16,14 +16,13 @@ public class QuestionHolder : MonoBehaviour
     {
 
         FillList();
-        print("finished"+indexes.ContainsKey("1"));
 
     }
 
     private void AddQuestion(List<string> tags) {
         
 
-        question.Add(adjacencyMatrix.Count, tags[0]);
+        question.Add(tags[0]);
         adjacencyMatrix.Add(new List<bool>());
 
         for (int i = 0; i < adjacencyMatrix[0].Count; i++)
@@ -32,17 +31,15 @@ public class QuestionHolder : MonoBehaviour
         for (int i = 1; i < tags.Count; i++)
         {
 
-            if (!indexes.ContainsKey(tags[i]))
+            if (!indexes.Contains(tags[i]))
             {
-                print("new tag:" + tags[i]+":");
-                indexes.Add(tags[i], adjacencyMatrix[0].Count);
+                indexes.Add(tags[i]);
                 for (int j = 0; j < adjacencyMatrix.Count - 1; j++)
                     adjacencyMatrix[j].Add(false);
                 adjacencyMatrix[adjacencyMatrix.Count - 1].Add(true);
             }
             else {
-                
-                int cur = indexes[tags[i]];
+                int cur = indexes.IndexOf(tags[i]);
                 adjacencyMatrix[adjacencyMatrix.Count - 1].RemoveAt(cur);
                 adjacencyMatrix[adjacencyMatrix.Count - 1].Insert(cur,true);
             }
@@ -54,12 +51,12 @@ public class QuestionHolder : MonoBehaviour
         
         int[] idTrue = new int[tagsTrue.Length];
         int[] idFalse = new int[tagsFalse.Length];
-        print("in the deep: "+indexes.ContainsKey(tagsTrue[0])+":"+ indexes.ContainsKey("2")+":"+tagsTrue[0]);
+        print("in the deep: "+indexes.Contains(tagsTrue[0])+":"+ indexes.Contains("2")+":"+tagsTrue[0]);
 
         for (int i = 0; i < tagsTrue.Length; i++)
-            idTrue[i] = indexes[tagsTrue[i]];
+            idTrue[i] = indexes.IndexOf(tagsTrue[i]);
         for (int i = 0; i < tagsFalse.Length; i++)
-            idFalse[i] = indexes[tagsFalse[i]];
+            idFalse[i] = indexes.IndexOf(tagsFalse[i]);
         bool matches=true;
         List<int> correctQuestions= new List<int>();
         for (int i = 0; i < adjacencyMatrix.Count; i++)
@@ -83,7 +80,7 @@ public class QuestionHolder : MonoBehaviour
         int q = correctQuestions[Random.Range(0, correctQuestions.Count)];
         string finalQ = question[q];
 
-        question.Remove(q);
+        question.RemoveAt(q);
         adjacencyMatrix.RemoveAt(q);
 
         return finalQ;

@@ -46,7 +46,6 @@ public class GameManager : MonoBehaviour
 
 
     public void NextQuestion() {
-        print("here " + questions[0][0]);
         questionScreenUI.DisplayQuestion(curRound + 1, curQuestion + 1, questions[curRound][curQuestion], "temp");
         curQuestion++;
         if (curQuestion==questions[curRound].Count)
@@ -77,12 +76,15 @@ public class GameManager : MonoBehaviour
         tempRound.Add(questionHolder.GetRandomQuestion(new string[] { "3" }, new string[] { }));
         questions.Add(tempRound);
         print("here " + questions[0][0]);
+        print("here " + questions[1][1]);
+        print("here " + questions[2][2]);
+
 
 
     }
 
 
-    
+
 
     private void RoundOne() {
         //adds rules

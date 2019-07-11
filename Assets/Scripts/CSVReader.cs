@@ -37,18 +37,20 @@ public class CSVReader : MonoBehaviour
         {
             List<string> tempL = new List<string>();
             string[] temp = stringList[i].Split(',');
-            print("new line");
 
             tempL.Add(temp[0].Trim());
 
+            //make it so it doesnt to lower the question
             for (int j = 1; j < temp.Length; j++)
             {
                 if (temp[j] == "")
                     continue;
-                temp[j] = temp[j].ToLower().Trim();
+                if(j==1)
+                    temp[j] = temp[j].Trim();
+                else
+                    temp[j] = temp[j].ToLower().Trim();
                 tempL.Add(temp[j]);
             }
-            print(tempL[1]);
             parsedList.Add(tempL);
         }
     }

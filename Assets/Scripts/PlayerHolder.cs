@@ -5,8 +5,8 @@ using UnityEngine;
 public class PlayerHolder : MonoBehaviour
 {
     public Player[] playerHolder;
-    public int currentPlayers=0;
-    public int maxPlayers = 8;
+    public int currentPlayerCount=0;
+    public int maxPlayers = 20;
 
     private void Start()
     {
@@ -20,28 +20,45 @@ public class PlayerHolder : MonoBehaviour
     private void CreateDevExample() {
         for (int i = 0; i < 8; i++) {
             Player p = new Player();
-            p.single = true;
-            p.female = true;
+            List<string> has = new List<string>();
+            has.Add("single");
+            has.Add("female");
             p.name = "Silver";
             p.age = 1;
-            AddPlayer(p);
+            AddPlayer();
+            FillPlayer(p, i);
         }
     }
 
-    public bool AddPlayer(Player p) {
-        if (currentPlayers > 7)
+    public bool AddPlayer() {
+        if (currentPlayerCount < maxPlayers)
+        {
+            currentPlayerCount++;
+            return true;
+        }
+        return false;
+    }
+
+    public bool FillPlayer(Player p, int currentPlayer) {
+        if (currentPlayer > currentPlayerCount)
             return false;
-        playerHolder[currentPlayers] = p;
-        currentPlayers++;
+        playerHolder[currentPlayerCount] = p;
+        currentPlayerCount++;
         return true;
     }
 
     public string[] GetRandomPlayerlist() {
-        string[] randomPL = new string[currentPlayers];
-        for (int i = 0; i < currentPlayers; i++)
+        string[] randomPL = new string[currentPlayerCount];
+        for (int i = 0; i < currentPlayerCount; i++)
             randomPL[i] = playerHolder[i].name;
         RandomOrder(randomPL);
         return randomPL;
+    }
+
+    public Player GetPlayer(int i) {
+        if(i<currentPlayerCount)
+            return playerHolder[i];
+        return new Player();
     }
 
     private void RandomOrder(object[] order)
